@@ -1,0 +1,102 @@
+/* Universal scroll entry pattern */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
+}
+
+/* Staggered children */
+.reveal-group .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-group .reveal:nth-child(2) { transition-delay: var(--stagger-sibling); }
+.reveal-group .reveal:nth-child(3) { transition-delay: calc(var(--stagger-sibling) * 2); }
+.reveal-group .reveal:nth-child(4) { transition-delay: calc(var(--stagger-sibling) * 3); }
+
+/* Path-draw animation */
+.fiber-path {
+  stroke-dasharray: var(--path-length, 1000);
+  stroke-dashoffset: var(--path-length, 1000);
+  transition: stroke-dashoffset 1.2s var(--ease-out);
+}
+
+.fiber-path.is-visible {
+  stroke-dashoffset: 0;
+}
+
+/* Sensor node pulse */
+.sensor-node {
+  animation: node-pulse 2.4s var(--ease-in-out) infinite;
+}
+
+/* Logo ticker marquee */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Node pulse keyframe */
+@keyframes node-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Hero entry keyframes */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Flow node pulse */
+@keyframes flow-node-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* Alert pulse ring */
+@keyframes alert-pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Breach pulse */
+@keyframes breach-pulse {
+  0% { r: 8; opacity: 1; }
+  100% { r: 28; opacity: 0; }
+}
+
+/* Blink cursor */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .bento-card,
+  .btn-primary,
+  .fiber-path,
+  .sensor-node,
+  .flow-node,
+  .flow-line {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+  }
+}

@@ -1,0 +1,27 @@
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--grid-gutter, 20px);
+}
+
+/* Tablet: 2-column equal grid */
+@media (min-width: 640px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: asymmetric 12-column bento */
+@media (min-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas:
+      "rftm rftm rftm rftm rftm rftm rftm pids pids pids pids pids"
+      "nova nova nova nova nova iot  iot  iot  iot  iot  iot  iot";
+  }
+
+  .bento-card-rftm { grid-area: rftm; }
+  .bento-card-nova { grid-area: nova; }
+  .bento-card-pids { grid-area: pids; }
+  .bento-card-iot  { grid-area: iot; }
+}
