@@ -107,48 +107,20 @@
     margin-bottom: 0;
 }
 
-/* --- Header Row: flex layout on mobile for counter positioning --- */
-.problem-header-row {
-    display: block;
-}
-
-.problem-header-text {
-    /* default: block */
-}
-
-/* Mobile counter: hidden by default, shown on mobile */
-.problem-mobile-counter {
-    display: none;
-}
-
 /* Cards column: visible by default */
 .problem-cards-column {
     display: flex;
 }
 
+/* Bottom counter: hidden by default, shown on mobile */
+.problem-bottom-counter {
+    display: none;
+}
+
 @media (max-width: 767px) {
-    .problem-header-row {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 12px;
-    }
-
-    .problem-header-text {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .problem-mobile-counter {
-        display: flex;
-        flex-shrink: 0;
-        align-items: flex-start;
-        padding-top: 4px;
-    }
-
     /* Hide the cards column entirely on mobile */
     .problem-cards-column {
-        display: none;
+        display: none !important;
     }
 
     .problem-container {
@@ -157,8 +129,16 @@
         padding-bottom: 32px;
     }
 
+    /* Enlarge headline on mobile — more room without the top counter */
     .problem-main-headline {
-        font-size: clamp(24px, 6vw, 32px);
+        font-size: clamp(28px, 7.5vw, 40px);
+    }
+
+    /* Show the bottom counter on mobile */
+    .problem-bottom-counter {
+        display: flex;
+        justify-content: center;
+        margin-top: 24px;
     }
 }
 

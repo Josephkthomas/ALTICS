@@ -112,15 +112,15 @@ export default function HowWeEngage() {
         setHasEntered(true);
       }
 
-      // On mobile, only use intersection for entry — no scroll-driven steps
-      if (isMobile) return;
-
-      // Viewport check for timer pause
+      // Viewport check for timer pause (must run on all viewports so timer works)
       const inViewport = rect.top < viewportHeight && rect.bottom > 0;
       if (!inViewport && isInViewportRef.current) {
         wasOutOfViewportRef.current = true;
       }
       isInViewportRef.current = inViewport;
+
+      // On mobile, only use intersection for entry — no scroll-driven steps
+      if (isMobile) return;
 
       // Map scroll to step + progress
       const scrolled = -rect.top;

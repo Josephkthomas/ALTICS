@@ -197,58 +197,81 @@
     max-width: 38ch;
 }
 
-/* Mobile: single-column layout, show all content */
+/* Mobile: horizontal swipeable full-card carousel */
 @media (max-width: 767px) {
     .bento-content {
-        padding: 64px var(--page-padding-mobile, 20px) 48px;
+        padding: 64px 0 48px;
+    }
+
+    .bento-header {
+        padding: 0 var(--page-padding-mobile, 20px);
     }
 
     .bento-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        gap: 12px;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px;
         flex: none;
+        padding: 0 var(--page-padding-mobile, 20px);
+        /* Hide scrollbar */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .bento-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .bento-card-wrapper {
+        flex: 0 0 78%;
+        scroll-snap-align: center;
+        min-width: 0;
     }
 
     .bento-card-link {
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        height: 100%;
     }
 
     .bento-card-illustration {
-        flex: 0 0 80px;
-        padding: 12px;
+        flex: 0 0 auto;
+        padding: 24px 16px 16px;
     }
 
     .bento-card-illustration-inner {
-        max-width: 64px;
+        max-width: 120px;
+        margin: 0 auto;
     }
 
     .bento-card-copy {
         flex: 1;
-        padding: 12px 14px 12px 0;
+        padding: 0 16px 16px;
+        text-align: center;
     }
 
     .bento-card-title {
-        font-size: 15px;
-        margin-bottom: 4px;
+        font-size: 16px;
+        margin-bottom: 6px;
     }
 
     .bento-card-desc {
         display: block;
-        font-size: 12px;
-        line-height: 1.45;
-        margin-bottom: 6px;
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        max-width: none;
     }
 
     .bento-card-cta {
         display: inline;
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .bento-card-eyebrow {
-        font-size: 9px;
-        margin-bottom: 3px;
+        font-size: 10px;
+        margin-bottom: 4px;
     }
 }
 

@@ -63,31 +63,17 @@ export default function ProblemSection() {
 
                     {/* Section Header — spans full width */}
                     <div
-                        className="problem-header-row transition-all duration-500 ease-out"
+                        className="transition-all duration-500 ease-out"
                         style={{
                             gridColumn: '1 / -1',
                             opacity: hasEntered ? 1 : 0,
                             transform: hasEntered ? 'translateY(0)' : 'translateY(24px)',
                         }}
                     >
-                        <div className="problem-header-text">
-                            <span className="problem-eyebrow problem-text-accent-amber block mb-3">— THE HIDDEN PROBLEM</span>
-                            <h2 className="problem-main-headline problem-text-primary">
-                                Invisible failures. <span className="problem-text-accent-orange">Real costs.</span>
-                            </h2>
-                        </div>
-
-                        {/* CounterBadge — visible on mobile in header, hidden on desktop */}
-                        <div
-                            className="problem-mobile-counter"
-                            style={{ opacity: hasEntered ? 1 : 0, transition: 'opacity 500ms ease-out 500ms' }}
-                        >
-                            <CounterBadge
-                                activeIndex={activeIndex}
-                                progress={progress}
-                                onPipClick={goTo}
-                            />
-                        </div>
+                        <span className="problem-eyebrow problem-text-accent-amber block mb-3">— THE HIDDEN PROBLEM</span>
+                        <h2 className="problem-main-headline problem-text-primary">
+                            Invisible failures. <span className="problem-text-accent-orange">Real costs.</span>
+                        </h2>
                     </div>
 
                     {/* Column 1: Step Rail */}
@@ -113,6 +99,18 @@ export default function ProblemSection() {
                     {/* Column 2: Text Panel */}
                     <div className="flex flex-col justify-center z-10 w-full relative min-h-0">
                         <TextPanel activeIndex={activeIndex} hasEntered={hasEntered} />
+
+                        {/* CounterBadge — mobile only, below text */}
+                        <div
+                            className="problem-bottom-counter"
+                            style={{ opacity: hasEntered ? 1 : 0, transition: 'opacity 500ms ease-out 500ms' }}
+                        >
+                            <CounterBadge
+                                activeIndex={activeIndex}
+                                progress={progress}
+                                onPipClick={goTo}
+                            />
+                        </div>
                     </div>
 
                     {/* Column 3: Cards & Counter — hidden on mobile */}
