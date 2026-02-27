@@ -153,7 +153,7 @@ const ProductsBento = () => {
   return (
     <section className="section-padding" style={{ background: 'var(--color-bg)' }}>
       <div className="container-custom">
-        <span className="eyebrow">— OUR SOLUTIONS</span>
+        <span className="eyebrow">— OUR SOLUTION</span>
         <h2
           className="font-display font-bold leading-tight mb-16"
           style={{ fontSize: 'clamp(36px, 4vw, 56px)', color: 'var(--color-text-primary)' }}

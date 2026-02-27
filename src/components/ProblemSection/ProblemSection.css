@@ -1,0 +1,243 @@
+.problem-section {
+    background-color: var(--color-inversion-bg, #111008);
+    position: relative;
+    /* Tall enough for 4 scroll stops with reading room */
+    height: 500vh;
+}
+
+.problem-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.problem-noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    z-index: 0;
+}
+
+.problem-container {
+    width: 100%;
+    max-width: var(--max-width, 1280px);
+    margin: 0 auto;
+    padding: 0 var(--page-padding-mobile, 20px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    position: relative;
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    .problem-container {
+        grid-template-columns: 56px 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .problem-container {
+        padding: 0 var(--page-padding, 40px);
+    }
+}
+
+@media (min-width: 1280px) {
+    .problem-container {
+        grid-template-columns: 56px 1fr 1fr;
+    }
+}
+
+/* Base text classes for inversion */
+.problem-text-primary {
+    color: var(--color-inversion-text, #F0EDE6);
+}
+
+.problem-text-muted {
+    color: rgba(240, 237, 230, 0.35);
+}
+
+.problem-text-accent-orange {
+    color: var(--color-accent-orange, #E8622A);
+}
+
+.problem-text-accent-amber {
+    color: var(--color-accent-amber, #D4A843);
+}
+
+/* Typography */
+.problem-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+    .problem-eyebrow {
+        font-size: 13px;
+    }
+}
+
+.problem-main-headline {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(40px, 4vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-top: 16px;
+    margin-bottom: 24px;
+}
+
+.problem-subtitle {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 16px;
+    max-width: 520px;
+    line-height: 1.6;
+}
+
+/* --- Card Transitions --- */
+
+.problem-card {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 500px;
+    background-color: var(--color-inversion-surface, #1C1B14);
+    border: 1px solid rgba(232, 98, 42, 0.08);
+    border-radius: var(--radius-card, 24px);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    /* Reduced motion default */
+    transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .problem-card {
+        transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+            opacity 1.2s ease-out,
+            filter 1.2s ease-out;
+    }
+
+    /* Exit transition logic (outgoing active card moves up and fades out fast) */
+    .problem-card[data-pos="exiting"] {
+        transform: translateY(-30px) scale(1.01);
+        opacity: 0;
+        transition: transform var(--duration-normal, 400ms) var(--ease-out),
+            opacity var(--duration-normal, 400ms) var(--ease-out);
+        pointer-events: none;
+        z-index: 50;
+        /* Keep it on top while it fades out */
+    }
+}
+
+/* Position 1: Active front card */
+.problem-card[data-pos="front"] {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+    z-index: 40;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(232, 98, 42, 0.06);
+}
+
+/* Cascading background positions (Desktop/Tablet) */
+.problem-card[data-pos="second"] {
+    transform: translateY(18px) scale(0.97);
+    opacity: 0.55;
+    filter: brightness(0.7);
+    z-index: 30;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.problem-card[data-pos="third"] {
+    transform: translateY(36px) scale(0.94);
+    opacity: 0.3;
+    filter: brightness(0.5);
+    z-index: 20;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.problem-card[data-pos="fourth"] {
+    transform: translateY(54px) scale(0.91);
+    opacity: 0.15;
+    filter: brightness(0.3);
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* Reduced offsets for Mobile */
+@media (max-width: 767px) {
+    .problem-card[data-pos="second"] {
+        transform: translateY(12px) scale(0.98);
+    }
+
+    .problem-card[data-pos="third"] {
+        transform: translateY(24px) scale(0.96);
+    }
+
+    .problem-card[data-pos="fourth"] {
+        transform: translateY(36px) scale(0.94);
+    }
+}
+
+/* --- Entry Cascades (Scroll Trigger) --- */
+.problem-card.entering {
+    opacity: 0;
+    transform: translateY(60px);
+}
+
+/* --- Text Transitions --- */
+.text-block-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    /* Only allow clicks when active */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .text-block-wrapper {
+        transition: transform 550ms var(--ease-out), opacity 550ms var(--ease-out);
+    }
+
+    .text-block-wrapper.inactive {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .text-block-wrapper.exiting {
+        opacity: 0;
+        transform: translateY(-14px);
+        transition: transform 350ms var(--ease-out), opacity 350ms var(--ease-out);
+    }
+}
+
+/* When reduced motion, just snap to opacity */
+@media (prefers-reduced-motion: reduce) {
+
+    .text-block-wrapper.inactive,
+    .text-block-wrapper.exiting {
+        opacity: 0;
+    }
+}
+
+.text-block-wrapper.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}

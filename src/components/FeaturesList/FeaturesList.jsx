@@ -50,7 +50,7 @@ const FeaturesList = () => {
   return (
     <section className="section-padding" style={{ background: 'var(--color-bg)' }}>
       <div className="container-custom">
-        <span className="eyebrow">— CAPABILITIES</span>
+        <span className="eyebrow">— OUR CAPABILITIES</span>
         <h2
           className="font-display font-bold leading-tight mb-12"
           style={{ fontSize: 'clamp(36px, 4vw, 56px)', color: 'var(--color-text-primary)' }}

@@ -1,0 +1,110 @@
+/* ===== Floating Pill Navigation ===== */
+
+.nav-pill {
+  position: fixed;
+  top: 24px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 10px 10px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(26, 22, 18, 0.09);
+  box-shadow: 0 2px 16px rgba(26, 22, 18, 0.08);
+  max-width: calc(100vw - 48px);
+  animation: fade-down 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.nav-pill--scrolled {
+  box-shadow: 0 4px 24px rgba(26, 22, 18, 0.12);
+}
+
+/* --- Logo --- */
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-logo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent-orange, #E8622A);
+  flex-shrink: 0;
+}
+
+.nav-logo-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-text-primary, #1A1612);
+}
+
+/* --- Links --- */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--color-text-secondary, #7A7067);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 100px;
+  transition: color 200ms ease-out, background 200ms ease-out;
+}
+
+.nav-link:hover {
+  color: var(--color-text-primary, #1A1612);
+  background: rgba(26, 22, 18, 0.05);
+}
+
+/* --- CTA Button --- */
+
+.nav-cta {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 500;
+  font-size: 13.5px;
+  padding: 9px 20px;
+  border-radius: 100px;
+  background: var(--color-accent-orange, #E8622A);
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 200ms ease-out, transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.nav-cta:hover {
+  background: #D45520;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232, 98, 42, 0.35);
+}
+
+/* --- Mobile (<768px): hide links, keep logo + CTA --- */
+
+@media (max-width: 767px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-pill {
+    gap: 16px;
+  }
+}

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap');
 @import './styles/tokens.css';
 @import './styles/animations.css';
 
@@ -39,7 +39,8 @@
   }
 
   .eyebrow {
-    @apply font-display font-semibold text-[11px] lg:text-[13px] tracking-[0.08em] uppercase text-text-secondary mb-4 block;
+    @apply font-display font-bold text-[11px] lg:text-[13px] tracking-[0.08em] uppercase mb-4 block;
+    color: var(--color-accent-amber);
   }
 
   .section-padding {

@@ -17,10 +17,10 @@ const HowItWorks = () => {
     >
       <div className="container-custom">
         <span
-          className="font-display font-semibold text-[12px] tracking-[0.08em] uppercase block mb-6"
+          className="font-display font-bold text-[11px] lg:text-[13px] tracking-[0.08em] uppercase block mb-6"
           style={{ color: 'var(--color-accent-amber)' }}
         >
-          — HOW IT WORKS
+          — HOW WE WORK
         </span>
 
         <h2
