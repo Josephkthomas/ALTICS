@@ -13,6 +13,7 @@
   .closing-cta {
     min-height: auto;
     padding: 48px 0;
+    overflow: visible;
   }
 
   /* Let headline flow naturally on mobile — hide forced <br> */
