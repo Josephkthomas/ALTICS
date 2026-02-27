@@ -21,8 +21,8 @@
   }
 
   .closing-cta__headline {
-    font-size: clamp(24px, 6.5vw, 34px);
-    line-height: 1.15;
+    font-size: 18px;
+    line-height: 1.35;
     margin-bottom: 14px;
   }
 
