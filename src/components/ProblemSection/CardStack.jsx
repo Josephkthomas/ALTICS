@@ -86,8 +86,8 @@ export default function CardStack({ activeIndex, onCardClick, hasEntered, onNext
     };
 
     return (
-        <div className="flex flex-col w-full">
-            <div className="relative w-full h-[560px]">
+        <div className="flex flex-col w-full h-full">
+            <div className="relative w-full h-full">
                 {[0, 1, 2, 3].map((index) => (
                     <ProblemCard
                         key={index}

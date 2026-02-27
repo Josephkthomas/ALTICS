@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PIDSIllustration() {
+export default function PIDSIllustration({ animate = true }) {
     const outerHexPoints = "100,24 166,62 166,138 100,176 34,138 34,62";
     const innerHexPoints = "100,52 133,70 133,108 100,126 67,108 67,70";
 
@@ -8,15 +8,53 @@ export default function PIDSIllustration() {
         <svg
             viewBox="0 0 200 200"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full"
+            className={`w-full h-full ${animate ? 'pids-animate' : ''}`}
             style={{ backgroundColor: "transparent" }}
         >
             <style>
                 {`
+          /* Comets hidden by default */
+          .pids-comet-tail,
+          .pids-comet-mid,
+          .pids-comet-head {
+            opacity: 0;
+          }
+
+          /* Animations only run when .pids-animate is on the SVG root */
+          @media (prefers-reduced-motion: no-preference) {
+            .pids-animate .pids-comet-tail {
+              opacity: 0.18;
+              animation: pids-trail 4s linear infinite;
+            }
+            .pids-animate .pids-comet-mid {
+              opacity: 0.45;
+              animation: pids-mid 4s linear infinite;
+            }
+            .pids-animate .pids-comet-head {
+              opacity: 1;
+              animation: pids-head 4s linear infinite;
+            }
+          }
+
           @media (prefers-reduced-motion: reduce) {
-            .pids-comet {
+            .pids-comet-tail,
+            .pids-comet-mid,
+            .pids-comet-head {
               display: none;
             }
+          }
+
+          @keyframes pids-trail {
+            from { stroke-dashoffset: 28; }
+            to { stroke-dashoffset: -428; }
+          }
+          @keyframes pids-mid {
+            from { stroke-dashoffset: 12; }
+            to { stroke-dashoffset: -444; }
+          }
+          @keyframes pids-head {
+            from { stroke-dashoffset: 0; }
+            to { stroke-dashoffset: -456; }
           }
         `}
             </style>
@@ -51,63 +89,36 @@ export default function PIDSIllustration() {
             </g>
 
             {/* Comet Layers */}
-            <g id="pids-comet-group" className="pids-comet" fill="none">
+            <g id="pids-comet-group" fill="none">
                 {/* Layer 3 - Far Tail */}
                 <polygon
+                    className="pids-comet-tail"
                     points={outerHexPoints}
                     stroke="#E8622A"
                     strokeWidth="1.0"
-                    opacity="0.18"
                     strokeDasharray="28 1000"
                     strokeDashoffset="28"
-                >
-                    <animate
-                        attributeName="stroke-dashoffset"
-                        from="28"
-                        to="-428"
-                        dur="4s"
-                        repeatCount="indefinite"
-                        calcMode="linear"
-                    />
-                </polygon>
+                />
 
                 {/* Layer 2 - Mid Tail */}
                 <polygon
+                    className="pids-comet-mid"
                     points={outerHexPoints}
                     stroke="#E8622A"
                     strokeWidth="1.8"
-                    opacity="0.45"
                     strokeDasharray="20 1000"
                     strokeDashoffset="12"
-                >
-                    <animate
-                        attributeName="stroke-dashoffset"
-                        from="12"
-                        to="-444"
-                        dur="4s"
-                        repeatCount="indefinite"
-                        calcMode="linear"
-                    />
-                </polygon>
+                />
 
                 {/* Layer 1 - Head */}
                 <polygon
+                    className="pids-comet-head"
                     points={outerHexPoints}
                     stroke="#E8622A"
                     strokeWidth="2.5"
-                    opacity="1.0"
                     strokeDasharray="12 1000"
                     strokeDashoffset="0"
-                >
-                    <animate
-                        attributeName="stroke-dashoffset"
-                        from="0"
-                        to="-456"
-                        dur="4s"
-                        repeatCount="indefinite"
-                        calcMode="linear"
-                    />
-                </polygon>
+                />
             </g>
         </svg>
     );

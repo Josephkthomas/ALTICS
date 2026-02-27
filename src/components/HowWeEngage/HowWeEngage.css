@@ -1,0 +1,599 @@
+/* ===== How We Engage — Scroll-Accelerated Spotlight Cards ===== */
+
+/* --- Section: Sticky Scroll Container --- */
+
+.engage-section {
+  background-color: var(--color-inversion-bg, #111008);
+  position: relative;
+  height: 250vh;
+}
+
+.engage-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* --- Noise Texture --- */
+
+.engage-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='engageNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23engageNoise)'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+/* --- Inner Content --- */
+
+.engage-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+/* --- Header (left-aligned) --- */
+
+.engage-header {
+  text-align: left;
+  margin-bottom: 28px;
+}
+
+.engage-eyebrow {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-orange, #E8622A);
+  margin-bottom: 16px;
+}
+
+@media (min-width: 1024px) {
+  .engage-eyebrow {
+    font-size: 13px;
+  }
+}
+
+.engage-headline {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 4vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-inversion-text, #F0EDE6);
+}
+
+/* --- Floating Timeline --- */
+
+.engage-timeline {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.engage-timeline__bar {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  position: relative;
+}
+
+.engage-timeline__fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--color-accent-orange, #E8622A) 0%, var(--color-accent-orange, #E8622A) 80%, rgba(232, 98, 42, 0.6) 100%);
+  transition: width 120ms linear;
+  box-shadow: 0 0 12px rgba(232, 98, 42, 0.3);
+}
+
+.engage-timeline__markers {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: -6px;
+  padding: 0 1px;
+}
+
+.engage-timeline__marker {
+  /* Reset button */
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.engage-timeline__marker:focus-visible {
+  outline: 2px solid var(--color-accent-orange, #E8622A);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.engage-timeline__dot {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid var(--color-inversion-bg, #111008);
+  transition:
+    background var(--duration-normal, 400ms) cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow var(--duration-normal, 400ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.engage-timeline__marker--done .engage-timeline__dot {
+  background: var(--color-accent-orange, #E8622A);
+}
+
+.engage-timeline__marker--active .engage-timeline__dot {
+  background: var(--color-accent-orange, #E8622A);
+  box-shadow: 0 0 0 3px rgba(232, 98, 42, 0.25), 0 0 12px rgba(232, 98, 42, 0.3);
+}
+
+.engage-timeline__marker-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.2);
+  transition: color var(--duration-normal, 400ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.engage-timeline__marker--active .engage-timeline__marker-label {
+  color: var(--color-accent-orange, #E8622A);
+}
+
+.engage-timeline__marker--done .engage-timeline__marker-label {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- Card Row --- */
+
+.engage-cards-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: stretch;
+  height: 340px;
+}
+
+/* --- Card Base --- */
+
+.engage-card {
+  /* Reset button */
+  appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+
+  /* Layout — fixed height via row, only width changes */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 24px 20px 24px;
+  border-radius: var(--radius-card, 24px);
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+
+  /* Smooth transitions — 700ms for width, 400ms for visuals */
+  transition:
+    opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    flex 700ms cubic-bezier(0.4, 0, 0.2, 1),
+    background 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engage-card:focus-visible {
+  outline: 2px solid var(--color-accent-orange, #E8622A);
+  outline-offset: 2px;
+}
+
+/* --- Active Card --- */
+
+.engage-card--active {
+  flex: 2.4;
+  background: linear-gradient(165deg, rgba(212, 168, 67, 0.12) 0%, rgba(232, 98, 42, 0.18) 45%, rgba(232, 98, 42, 0.06) 100%);
+  border: 1px solid rgba(212, 168, 67, 0.25);
+  box-shadow: 0 8px 48px rgba(232, 98, 42, 0.1), 0 0 0 1px rgba(212, 168, 67, 0.1);
+}
+
+/* --- Inactive Card --- */
+
+.engage-card--inactive {
+  flex: 0.85;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+
+/* Hover: strong click affordance */
+.engage-card--inactive:hover {
+  border-color: rgba(232, 98, 42, 0.3);
+  background: rgba(232, 98, 42, 0.04);
+  box-shadow: 0 0 0 1px rgba(232, 98, 42, 0.1);
+}
+
+.engage-card--inactive:hover .engage-card__title {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.engage-card--inactive:hover .engage-card__number {
+  color: var(--color-accent-orange, #E8622A);
+}
+
+/* illustration is collapsed (height:0) on inactive, no hover needed */
+
+/* --- Card: Illustration (collapses on inactive) --- */
+
+.engage-card__illustration {
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition:
+    height 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    margin 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engage-card__illustration svg {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.engage-card--active .engage-card__illustration {
+  height: 48px;
+  opacity: 1;
+  margin-bottom: 12px;
+}
+
+.engage-card--inactive .engage-card__illustration {
+  height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+}
+
+/* --- Card: Number --- */
+
+.engage-card__number {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  margin-bottom: 6px;
+  transition: color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engage-card--active .engage-card__number {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.engage-card--inactive .engage-card__number {
+  color: var(--color-accent-amber, #D4A843);
+}
+
+/* --- Card: Title --- */
+
+.engage-card__title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  margin-top: 0;
+  margin-bottom: 6px;
+  transition: color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engage-card--active .engage-card__title {
+  color: #FFFFFF;
+}
+
+.engage-card--inactive .engage-card__title {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* --- Card: Description (always visible) --- */
+
+.engage-card__desc {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+  transition: color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engage-card--active .engage-card__desc {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.engage-card--inactive .engage-card__desc {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* --- Card: Highlights List --- */
+
+.engage-card__highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+  transition:
+    max-height 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    margin 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engage-card--active .engage-card__highlights {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 12px;
+}
+
+.engage-card--inactive .engage-card__highlights {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.engage-card__highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.engage-card__highlight-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  transition: color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engage-card__highlight-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.engage-card--active .engage-card__highlight-icon {
+  color: var(--color-accent-orange, #E8622A);
+}
+
+.engage-card--inactive .engage-card__highlight-icon {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.engage-card__highlight-text {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.45;
+  transition: color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engage-card--active .engage-card__highlight-text {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.engage-card--inactive .engage-card__highlight-text {
+  color: rgba(255, 255, 255, 0.12);
+}
+
+/* --- Progress Bar --- */
+
+.engage-progress {
+  margin-top: 0;
+}
+
+.engage-progress__track {
+  display: flex;
+  gap: 12px;
+}
+
+.engage-progress__segment {
+  /* Reset button */
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  transition: flex var(--duration-slow, 600ms) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.engage-progress__segment--active {
+  flex: 2.4;
+}
+
+.engage-progress__segment:not(.engage-progress__segment--active) {
+  flex: 0.85;
+}
+
+.engage-progress__bar {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.engage-progress__fill {
+  height: 100%;
+  background: var(--color-accent-amber, #D4A843);
+  border-radius: 2px;
+  transition: width 100ms linear;
+}
+
+.engage-progress__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  transition: color var(--duration-normal, 400ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.engage-progress__segment--active .engage-progress__label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== Responsive ===== */
+
+/* Mobile: < 768px */
+@media (max-width: 767px) {
+  .engage-section {
+    height: 200vh;
+  }
+
+  .engage-cards-row {
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+  }
+
+  .engage-card--active,
+  .engage-card--inactive {
+    flex: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .engage-card--inactive .engage-card__illustration,
+  .engage-card--inactive .engage-card__desc,
+  .engage-card--inactive .engage-card__highlights {
+    display: none;
+  }
+
+  .engage-card {
+    padding: 16px 16px 20px;
+  }
+
+  .engage-progress__label {
+    display: none;
+  }
+
+  .engage-progress__segment--active,
+  .engage-progress__segment:not(.engage-progress__segment--active) {
+    flex: 1;
+  }
+
+  .engage-timeline__marker-label {
+    font-size: 9px;
+  }
+}
+
+/* Tablet: 768px — 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .engage-card {
+    padding: 24px 20px 28px;
+  }
+
+  .engage-card__illustration {
+    width: 40px;
+  }
+
+  .engage-card__illustration svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .engage-card--active .engage-card__illustration {
+    height: 40px;
+  }
+
+  .engage-cards-row {
+    height: 300px;
+  }
+
+  /* Disable hover on touch devices in tablet range */
+  @media (hover: none) {
+    .engage-card--inactive:hover {
+      border-color: rgba(255, 255, 255, 0.06);
+      background: transparent;
+    }
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1280px) {
+  .engage-card {
+    padding: 28px 24px 28px;
+  }
+
+  .engage-cards-row {
+    height: 360px;
+  }
+}
+
+/* ===== Reduced Motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .engage-card,
+  .engage-progress__segment {
+    transition: none !important;
+  }
+
+  .engage-card__illustration,
+  .engage-card__title,
+  .engage-card__number,
+  .engage-card__desc,
+  .engage-card__highlights,
+  .engage-card__highlight-icon,
+  .engage-card__highlight-text {
+    transition: none !important;
+  }
+
+  .engage-progress__fill {
+    transition: none !important;
+  }
+
+  .engage-timeline__fill {
+    transition: none !important;
+  }
+
+  .engage-timeline__dot {
+    transition: none !important;
+  }
+
+  .engage-card,
+  .engage-header,
+  .engage-progress,
+  .engage-timeline {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

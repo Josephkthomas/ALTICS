@@ -1,51 +1,55 @@
 import React from "react";
 
-export default function NovaIllustration() {
+export default function NovaIllustration({ animate = true }) {
     return (
         <svg
             viewBox="0 0 200 200"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full"
+            className={`w-full h-full ${animate ? 'nova-animate' : ''}`}
             style={{ backgroundColor: "transparent" }}
         >
             <style>
                 {`
+          /* Base styles (always applied) */
+          .nova-sweep-group {
+            transform-origin: 100px 100px;
+          }
+          .nova-node {
+            transform-box: fill-box;
+            transform-origin: center;
+          }
+
+          /* Animations only run when .nova-animate is on the SVG root */
           @media (prefers-reduced-motion: no-preference) {
-            .nova-sweep-group {
-              transform-origin: 100px 100px;
+            .nova-animate .nova-sweep-group {
               animation: nova-rotate 8s linear infinite;
             }
-            .nova-node {
+            .nova-animate .nova-node {
               animation: nova-node-in 400ms cubic-bezier(0.16,1,0.3,1) both;
-              transform-box: fill-box;
-              transform-origin: center;
             }
-            .nova-edge {
+            .nova-animate .nova-edge {
               stroke-dasharray: 200;
               stroke-dashoffset: 200;
               animation: nova-edge-in 600ms cubic-bezier(0.16,1,0.3,1) both;
             }
-            
+
             /* Staggering Nodes */
-            .nova-n0 { animation-delay: 0ms; }
-            .nova-n1 { animation-delay: 100ms; }
-            .nova-n2 { animation-delay: 200ms; }
-            .nova-n3 { animation-delay: 300ms; }
-            .nova-n4 { animation-delay: 400ms; }
-            .nova-n5 { animation-delay: 500ms; }
-            
+            .nova-animate .nova-n0 { animation-delay: 0ms; }
+            .nova-animate .nova-n1 { animation-delay: 100ms; }
+            .nova-animate .nova-n2 { animation-delay: 200ms; }
+            .nova-animate .nova-n3 { animation-delay: 300ms; }
+            .nova-animate .nova-n4 { animation-delay: 400ms; }
+            .nova-animate .nova-n5 { animation-delay: 500ms; }
+
             /* Staggering Edges */
-            .nova-e0 { animation-delay: 200ms; }
-            .nova-e1 { animation-delay: 350ms; }
-            .nova-e2 { animation-delay: 500ms; }
-            .nova-e3 { animation-delay: 650ms; }
-            .nova-e4 { animation-delay: 800ms; }
+            .nova-animate .nova-e0 { animation-delay: 200ms; }
+            .nova-animate .nova-e1 { animation-delay: 350ms; }
+            .nova-animate .nova-e2 { animation-delay: 500ms; }
+            .nova-animate .nova-e3 { animation-delay: 650ms; }
+            .nova-animate .nova-e4 { animation-delay: 800ms; }
           }
-          
+
           @media (prefers-reduced-motion: reduce) {
-            .nova-sweep-group {
-              transform-origin: 100px 100px;
-            }
             .nova-node {
               opacity: 1;
               transform: scale(1);

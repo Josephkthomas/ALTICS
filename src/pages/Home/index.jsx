@@ -2,9 +2,8 @@ import React from 'react';
 import Hero from '../../components/Hero/Hero';
 import ProblemSection from '../../components/ProblemSection';
 import ProductsBento from '../../components/ProductsBento/ProductsBento';
-import FeaturesList from '../../components/FeaturesList/FeaturesList';
-import HowItWorks from '../../components/HowItWorks/HowItWorks';
-import CTABand from '../../components/CTABand/CTABand';
+import HowWeEngage from '../../components/HowWeEngage';
+import ClosingSection from '../../components/ClosingSection';
 
 export default function Home() {
   return (
@@ -12,9 +11,8 @@ export default function Home() {
       <Hero />
       <ProblemSection />
       <ProductsBento />
-      <FeaturesList />
-      <HowItWorks />
-      <CTABand />
+      <HowWeEngage />
+      <ClosingSection />
     </>
   );
 }

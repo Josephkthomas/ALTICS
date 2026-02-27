@@ -9,7 +9,7 @@ export default function StepRail({ activeIndex, progress = 0, onNavigate, hasEnt
     ];
 
     return (
-        <div className="flex flex-col items-center max-h-[560px] h-[560px] w-14">
+        <div className="flex flex-col items-center h-full w-14">
             {nodes.map((node, i) => {
                 const isActive = activeIndex === i;
                 const isPast = activeIndex > i;

@@ -70,14 +70,10 @@ export default function ProblemSection() {
                             transform: hasEntered ? 'translateY(0)' : 'translateY(24px)',
                         }}
                     >
-                        <span className="problem-eyebrow problem-text-accent-amber block mb-4">— THE HIDDEN PROBLEM</span>
+                        <span className="problem-eyebrow problem-text-accent-amber block mb-3">— THE HIDDEN PROBLEM</span>
                         <h2 className="problem-main-headline problem-text-primary">
-                            Invisible failures.<br />
-                            <span className="problem-text-accent-orange">Real costs.</span>
+                            Invisible failures. <span className="problem-text-accent-orange">Real costs.</span>
                         </h2>
-                        <p className="problem-subtitle problem-text-muted">
-                            Critical infrastructure degrades silently. These are the four problems no one sees — until the damage is done.
-                        </p>
                     </div>
 
                     {/* Column 1: Step Rail */}
@@ -101,14 +97,14 @@ export default function ProblemSection() {
                     </div>
 
                     {/* Column 2: Text Panel */}
-                    <div className="flex flex-col z-10 w-full relative">
+                    <div className="flex flex-col justify-center z-10 w-full relative min-h-0">
                         <TextPanel activeIndex={activeIndex} hasEntered={hasEntered} />
                     </div>
 
                     {/* Column 3: Cards & Counter */}
-                    <div className="flex flex-col z-10 w-full relative">
+                    <div className="flex flex-col z-10 w-full relative min-h-0">
                         <div
-                            className="flex justify-end mb-8 transition-opacity duration-500 delay-500"
+                            className="flex justify-end mb-3 transition-opacity duration-500 delay-500 flex-shrink-0"
                             style={{ opacity: hasEntered ? 1 : 0 }}
                         >
                             <CounterBadge

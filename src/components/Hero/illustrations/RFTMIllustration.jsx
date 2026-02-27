@@ -1,26 +1,28 @@
 import React from "react";
 
-export default function RFTMIllustration() {
+export default function RFTMIllustration({ animate = true }) {
   return (
     <svg
       viewBox="0 0 200 200"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-full"
+      className={`w-full h-full ${animate ? 'rftm-animate' : ''}`}
       style={{ backgroundColor: "transparent" }}
     >
       <style>
         {`
+          /* Animations only run when .rftm-animate is on the SVG root */
           @media (prefers-reduced-motion: no-preference) {
-            .rftm-trace-left {
+            .rftm-animate .rftm-trace-left {
               stroke-dasharray: 600;
               stroke-dashoffset: 600;
               animation: rftm-draw 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             }
-            .rftm-spike, .rftm-trace-right {
+            .rftm-animate .rftm-spike,
+            .rftm-animate .rftm-trace-right {
               opacity: 0;
               animation: rftm-fade-spike 2s infinite;
             }
-            .rftm-label {
+            .rftm-animate .rftm-label {
               opacity: 0;
               animation: rftm-fade-label 2s infinite;
             }
@@ -40,7 +42,7 @@ export default function RFTMIllustration() {
             0% { stroke-dashoffset: 600; }
             100% { stroke-dashoffset: 0; }
           }
-          
+
           @keyframes rftm-fade-spike {
             0%, 44.9% { opacity: 0; }
             45%, 80% { opacity: 1; }
