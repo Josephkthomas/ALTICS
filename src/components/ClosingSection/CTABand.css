@@ -9,38 +9,6 @@
   overflow: hidden;
 }
 
-@media (max-width: 767px) {
-  .closing-cta {
-    min-height: auto;
-    padding: 48px 0;
-    overflow: visible;
-  }
-
-  /* Let headline flow naturally on mobile — hide forced <br> */
-  .closing-cta__br-desktop {
-    display: none;
-  }
-
-  .closing-cta__headline {
-    font-size: 18px;
-    line-height: 1.35;
-    margin-bottom: 14px;
-  }
-
-  .closing-cta__subline {
-    font-size: 14px;
-    line-height: 1.55;
-    margin-bottom: 24px;
-  }
-
-  .closing-cta__btn {
-    font-size: 14px;
-    padding: 12px 24px;
-    width: 100%;
-    text-align: center;
-  }
-}
-
 /* Canvas wrapper */
 .closing-cta__canvas-wrap {
   position: absolute;
@@ -138,4 +106,36 @@
   border-color: #FFFFFF;
   background: rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
+}
+
+/* ===== Mobile overrides — MUST come after base rules ===== */
+@media (max-width: 767px) {
+  .closing-cta {
+    min-height: auto;
+    padding: 48px 0;
+    overflow: visible;
+  }
+
+  .closing-cta__br-desktop {
+    display: none;
+  }
+
+  .closing-cta__headline {
+    font-size: 18px;
+    line-height: 1.35;
+    margin-bottom: 14px;
+  }
+
+  .closing-cta__subline {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+
+  .closing-cta__btn {
+    font-size: 14px;
+    padding: 12px 24px;
+    width: 100%;
+    text-align: center;
+  }
 }
