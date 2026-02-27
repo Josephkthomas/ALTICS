@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import BinaryWave from "./BinaryWave";
 import "./Hero.css";
 
+const TYPEWRITER_TEXT = "Continuously. Completely.";
+const CHAR_DELAY = 55;       // ms per character
+const START_DELAY = 1000;    // wait for fade-up animations to finish
+const CURSOR_LINGER = 1800;  // cursor blinks after typing, then fades
+
 export default function Hero() {
+  const [typed, setTyped] = useState("");
+  const [showCursor, setShowCursor] = useState(false);
+  const [cursorDone, setCursorDone] = useState(false);
+
+  useEffect(() => {
+    // Check reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTyped(TYPEWRITER_TEXT);
+      setCursorDone(true);
+      return;
+    }
+
+    const startTimer = setTimeout(() => {
+      setShowCursor(true);
+      let i = 0;
+      const typeInterval = setInterval(() => {
+        i++;
+        setTyped(TYPEWRITER_TEXT.slice(0, i));
+        if (i >= TYPEWRITER_TEXT.length) {
+          clearInterval(typeInterval);
+          // Cursor lingers, then fades
+          setTimeout(() => {
+            setCursorDone(true);
+          }, CURSOR_LINGER);
+        }
+      }, CHAR_DELAY);
+      return () => clearInterval(typeInterval);
+    }, START_DELAY);
+
+    return () => clearTimeout(startTimer);
+  }, []);
+
   return (
     <section className="hero-section">
       {/* Background layers */}
       <div className="hero-glow" aria-hidden="true" />
+      <BinaryWave />
       <div className="hero-grain" aria-hidden="true">
         <svg width="0" height="0">
           <filter id="hero-noise">
@@ -18,23 +57,31 @@ export default function Hero() {
           </filter>
         </svg>
       </div>
-      <div className="hero-bleed" aria-hidden="true" />
 
       {/* Content */}
       <div className="hero-content">
         <h1 className="hero-headline">
-          The faults
+          Your infrastructure,
           <br />
-          you don&rsquo;t see
+          <span className="hero-headline-accent">
+            monitored<span className="hero-pulse-dot" aria-hidden="true" />
+          </span>
           <br />
-          are the ones
-          <br />
-          that <em className="hero-headline-accent">cost you.</em>
+          <span className="hero-typewriter" aria-label={TYPEWRITER_TEXT}>
+            {typed}
+            {showCursor && (
+              <span
+                className={`hero-cursor ${cursorDone ? "hero-cursor-fade" : ""}`}
+                aria-hidden="true"
+              />
+            )}
+          </span>
         </h1>
 
         <p className="hero-subheading">
           Fibre networks, perimeter security, IoT sensors, and network
-          operations — monitored continuously, so nothing goes undetected.
+          operations — one unified platform that sees everything, so you
+          never have to wonder.
         </p>
 
         <div className="hero-cta-row">

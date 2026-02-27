@@ -1,8 +1,8 @@
 .problem-section {
     background-color: var(--color-inversion-bg, #111008);
     position: relative;
-    /* Tall enough for 4 scroll stops with reading room */
-    height: 500vh;
+    /* ~50vh of scrolling per step (4 steps + 1vh for sticky) */
+    height: 300vh;
 }
 
 .problem-sticky {

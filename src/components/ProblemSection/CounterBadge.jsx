@@ -24,7 +24,7 @@ export default function CounterBadge({ activeIndex, progress, onPipClick }) {
                         style={{
                             strokeDasharray: circumference,
                             strokeDashoffset: strokeDashoffset,
-                            transition: 'stroke-dashoffset 14s linear',
+                            transition: 'stroke-dashoffset 80ms ease-out',
                         }}
                     />
                 </svg>

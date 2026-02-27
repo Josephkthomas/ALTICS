@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function StepRail({ activeIndex, onNavigate, hasEntered }) {
+export default function StepRail({ activeIndex, progress = 0, onNavigate, hasEntered }) {
     const nodes = [
         { num: '01' },
         { num: '02' },
@@ -15,11 +15,22 @@ export default function StepRail({ activeIndex, onNavigate, hasEntered }) {
                 const isPast = activeIndex > i;
                 const isLast = i === nodes.length - 1;
 
+                // Progressive connector fill:
+                // - Past segments: fully filled (scaleY 1)
+                // - Active segment (connector below the active node): fills based on scroll progress
+                // - Future segments: empty (scaleY 0)
+                let connectorScale = 0;
+                if (isPast) {
+                    connectorScale = 1;
+                } else if (isActive && !isLast) {
+                    connectorScale = progress;
+                }
+
                 return (
                     <React.Fragment key={i}>
                         {/* Node */}
                         <div
-                            className={`flex flex-col items-center cursor-pointer group transition-all duration-500 ease-out`}
+                            className="flex flex-col items-center cursor-pointer group transition-all duration-500 ease-out"
                             style={{
                                 opacity: hasEntered ? 1 : 0,
                                 transform: hasEntered ? 'translateY(0)' : 'translateY(20px)',
@@ -51,18 +62,19 @@ export default function StepRail({ activeIndex, onNavigate, hasEntered }) {
                                     }}
                                 >
                                     <div
-                                        className="w-full bg-[#E8622A] transition-all duration-600 ease-out origin-top"
+                                        className="w-full bg-[#E8622A] origin-top"
                                         style={{
                                             height: '100%',
-                                            transform: isPast ? 'scaleY(1)' : 'scaleY(0)'
+                                            transform: `scaleY(${connectorScale})`,
+                                            transition: 'transform 80ms ease-out',
                                         }}
                                     />
                                 </div>
                             )
                         }
-                    </React.Fragment >
+                    </React.Fragment>
                 );
             })}
-        </div >
+        </div>
     );
 }

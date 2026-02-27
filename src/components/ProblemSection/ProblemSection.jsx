@@ -27,7 +27,8 @@ export default function ProblemSection() {
             const scrolled = -rect.top;
             const scrollProgress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
 
-            if (scrolled > 0 && !hasEntered) {
+            // Reveal content when the section is ~1/3 visible in the viewport
+            if (rect.top < viewportHeight * 0.67 && !hasEntered) {
                 setHasEntered(true);
             }
 
@@ -83,6 +84,7 @@ export default function ProblemSection() {
                     <div className="hidden md:block">
                         <StepRail
                             activeIndex={activeIndex}
+                            progress={progress}
                             hasEntered={hasEntered}
                             onNavigate={goTo}
                         />
