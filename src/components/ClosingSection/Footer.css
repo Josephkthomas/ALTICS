@@ -88,3 +88,32 @@
 .closing-footer__social-link:hover {
   color: var(--color-inversion-text);
 }
+
+/* Mobile footer tweaks */
+@media (max-width: 767px) {
+  .closing-footer__inner {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  .closing-footer__grid {
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .closing-footer__col-title {
+    margin-bottom: 16px;
+  }
+
+  .closing-footer__link {
+    font-size: 13px;
+  }
+
+  .closing-footer__copyright {
+    font-size: 12px;
+  }
+
+  .closing-footer__social-link {
+    font-size: 12px;
+  }
+}

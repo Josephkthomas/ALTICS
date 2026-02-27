@@ -69,6 +69,16 @@ export default function HowWeEngage() {
   const [hasEntered, setHasEntered] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [fillProgress, setFillProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile viewport
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mql.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   // Refs for high-frequency rAF values (avoid re-renders)
   const timerStartRef = useRef(null);
@@ -102,6 +112,9 @@ export default function HowWeEngage() {
         setHasEntered(true);
       }
 
+      // On mobile, only use intersection for entry — no scroll-driven steps
+      if (isMobile) return;
+
       // Viewport check for timer pause
       const inViewport = rect.top < viewportHeight && rect.bottom > 0;
       if (!inViewport && isInViewportRef.current) {
@@ -123,7 +136,7 @@ export default function HowWeEngage() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasEntered]);
+  }, [hasEntered, isMobile]);
 
   // Dual-track rAF loop
   useEffect(() => {

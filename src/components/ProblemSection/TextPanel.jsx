@@ -50,9 +50,8 @@ export default function TextPanel({ activeIndex, hasEntered }) {
 
     return (
         <div
-            className="relative"
+            className="relative problem-text-panel"
             style={{
-                minHeight: '260px',
                 opacity: hasEntered ? 1 : 0,
                 transition: 'opacity 500ms ease-out',
             }}
@@ -78,13 +77,13 @@ export default function TextPanel({ activeIndex, hasEntered }) {
                             pointerEvents: isActive ? 'auto' : 'none',
                         }}
                     >
-                        <div className="flex items-center gap-2 mb-4 font-mono text-[13px] problem-text-accent-orange font-medium">
-                            {data.num} — <span className="text-[rgba(240,237,230,0.5)] font-body uppercase text-[11px] tracking-widest">{data.category}</span>
+                        <div className="flex items-center gap-2 mb-3 md:mb-4 font-mono text-[12px] md:text-[13px] problem-text-accent-orange font-medium">
+                            {data.num} — <span className="text-[rgba(240,237,230,0.5)] font-body uppercase text-[10px] md:text-[11px] tracking-widest">{data.category}</span>
                         </div>
-                        <h3 className="font-display font-bold text-3xl mb-4 problem-text-primary">
+                        <h3 className="font-display font-bold text-2xl md:text-3xl mb-3 md:mb-4 problem-text-primary">
                             {data.headline}
                         </h3>
-                        <p className="font-body text-[15px] leading-relaxed problem-text-muted mb-6">
+                        <p className="font-body text-[14px] md:text-[15px] leading-relaxed problem-text-muted mb-5 md:mb-6">
                             {data.body}
                         </p>
                         <div>

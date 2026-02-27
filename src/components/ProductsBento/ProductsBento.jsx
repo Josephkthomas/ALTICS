@@ -49,6 +49,16 @@ export default function ProductsBento() {
   const [activeStep, setActiveStep] = useState(0);
   const [hasEntered, setHasEntered] = useState(false);
   const [activatedCards, setActivatedCards] = useState(() => new Set());
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile viewport
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mql.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,6 +73,9 @@ export default function ProductsBento() {
       if (rect.top < viewportHeight * 0.67 && !hasEntered) {
         setHasEntered(true);
       }
+
+      // Skip scroll-driven step logic on mobile (all cards shown at once)
+      if (isMobile) return;
 
       // Scroll-driven step calculation (same pattern as ProblemSection)
       const scrollableDistance = sectionHeight - viewportHeight;
@@ -88,9 +101,9 @@ export default function ProductsBento() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasEntered]);
+  }, [hasEntered, isMobile]);
 
-  const activeCardIndex = CLOCKWISE_ORDER[activeStep];
+  const activeCardIndex = isMobile ? -1 : CLOCKWISE_ORDER[activeStep];
 
   return (
     <section ref={sectionRef} className="bento-section" aria-label="Our solutions">
@@ -117,7 +130,7 @@ export default function ProductsBento() {
           <div className="bento-grid">
             {products.map((product, i) => {
               const isHighlighted = activeCardIndex === i;
-              const isActivated = activatedCards.has(i);
+              const isActivated = isMobile ? hasEntered : activatedCards.has(i);
               const Illustration = product.Illustration;
 
               return (

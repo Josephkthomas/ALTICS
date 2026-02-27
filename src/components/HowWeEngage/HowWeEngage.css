@@ -473,35 +473,125 @@
 
 /* ===== Responsive ===== */
 
-/* Mobile: < 768px */
+/* Mobile: < 768px — Accordion-style cards */
 @media (max-width: 767px) {
   .engage-section {
-    height: 200vh;
+    height: auto;
+  }
+
+  .engage-sticky {
+    position: relative;
+    height: auto;
+    padding-top: 64px;
+    padding-bottom: 48px;
+    overflow: visible;
+  }
+
+  .engage-header {
+    margin-bottom: 20px;
+  }
+
+  .engage-headline {
+    font-size: clamp(26px, 7vw, 36px);
+    line-height: 1.15;
+  }
+
+  /* Hide the floating timeline on mobile */
+  .engage-timeline {
+    display: none;
   }
 
   .engage-cards-row {
     flex-direction: column;
     gap: 8px;
     height: auto;
+    margin-bottom: 16px;
   }
 
-  .engage-card--active,
-  .engage-card--inactive {
-    flex: none;
+  .engage-card {
+    padding: 14px 16px;
+    border-radius: 16px;
     width: 100%;
     height: auto;
+    flex: none;
   }
 
-  .engage-card--inactive .engage-card__illustration,
-  .engage-card--inactive .engage-card__desc,
+  .engage-card--active {
+    flex: none;
+    padding: 16px 16px 20px;
+  }
+
+  .engage-card--inactive {
+    flex: none;
+    padding: 12px 16px;
+  }
+
+  /* Inactive cards: collapsed to just number + title */
+  .engage-card--inactive .engage-card__illustration {
+    display: none;
+  }
+
+  .engage-card--inactive .engage-card__desc {
+    display: none;
+  }
+
   .engage-card--inactive .engage-card__highlights {
     display: none;
   }
 
-  .engage-card {
-    padding: 16px 16px 20px;
+  .engage-card--inactive .engage-card__title {
+    margin-bottom: 0;
+    font-size: 14px;
   }
 
+  .engage-card--inactive .engage-card__number {
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+
+  /* Active card: show illustration inline with number */
+  .engage-card--active .engage-card__illustration {
+    height: 36px;
+    width: 36px;
+    margin-bottom: 8px;
+  }
+
+  .engage-card--active .engage-card__illustration svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .engage-card--active .engage-card__title {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .engage-card--active .engage-card__desc {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .engage-card--active .engage-card__highlights {
+    max-height: 180px;
+    margin-top: 10px;
+    gap: 6px;
+  }
+
+  .engage-card--active .engage-card__highlight-text {
+    font-size: 11px;
+  }
+
+  .engage-card--active .engage-card__highlight-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .engage-card--active .engage-card__highlight-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Progress bar */
   .engage-progress__label {
     display: none;
   }
@@ -509,10 +599,6 @@
   .engage-progress__segment--active,
   .engage-progress__segment:not(.engage-progress__segment--active) {
     flex: 1;
-  }
-
-  .engage-timeline__marker-label {
-    font-size: 9px;
   }
 }
 

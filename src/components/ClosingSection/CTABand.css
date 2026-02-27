@@ -11,8 +11,32 @@
 
 @media (max-width: 767px) {
   .closing-cta {
-    min-height: 50vh;
-    padding: 60px 0;
+    min-height: auto;
+    padding: 56px 0;
+  }
+
+  /* Let headline flow naturally on mobile — hide forced <br> */
+  .closing-cta__br-desktop {
+    display: none;
+  }
+
+  .closing-cta__headline {
+    font-size: clamp(28px, 7vw, 38px);
+    line-height: 1.18;
+    margin-bottom: 16px;
+  }
+
+  .closing-cta__subline {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+
+  .closing-cta__btn {
+    font-size: 14px;
+    padding: 12px 24px;
+    width: 100%;
+    text-align: center;
   }
 }
 

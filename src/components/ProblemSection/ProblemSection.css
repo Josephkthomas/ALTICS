@@ -5,6 +5,12 @@
     height: 300vh;
 }
 
+@media (max-width: 767px) {
+    .problem-section {
+        height: 250vh;
+    }
+}
+
 .problem-sticky {
     position: sticky;
     top: 0;
@@ -99,6 +105,61 @@
     letter-spacing: -0.02em;
     margin-top: 6px;
     margin-bottom: 0;
+}
+
+/* --- Header Row: flex layout on mobile for counter positioning --- */
+.problem-header-row {
+    display: block;
+}
+
+.problem-header-text {
+    /* default: block */
+}
+
+/* Mobile counter: hidden by default, shown on mobile */
+.problem-mobile-counter {
+    display: none;
+}
+
+/* Cards column: visible by default */
+.problem-cards-column {
+    display: flex;
+}
+
+@media (max-width: 767px) {
+    .problem-header-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .problem-header-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .problem-mobile-counter {
+        display: flex;
+        flex-shrink: 0;
+        align-items: flex-start;
+        padding-top: 4px;
+    }
+
+    /* Hide the cards column entirely on mobile */
+    .problem-cards-column {
+        display: none;
+    }
+
+    .problem-container {
+        grid-template-rows: auto auto 1fr;
+        padding-top: 90px;
+        padding-bottom: 32px;
+    }
+
+    .problem-main-headline {
+        font-size: clamp(24px, 6vw, 32px);
+    }
 }
 
 /* --- Card Transitions --- */
@@ -236,4 +297,15 @@
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+}
+
+/* Text panel min-height */
+.problem-text-panel {
+    min-height: 260px;
+}
+
+@media (max-width: 767px) {
+    .problem-text-panel {
+        min-height: 320px;
+    }
 }

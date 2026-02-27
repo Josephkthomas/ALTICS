@@ -21,12 +21,12 @@ export default function CTABand() {
         }}
       >
         <h2 className="closing-cta__headline font-display font-extrabold">
-          Your infrastructure is
-          <br />
-          running right now.
-          <br />
-          Is anyone
-          <br />
+          Your infrastructure is{' '}
+          <br className="closing-cta__br-desktop" />
+          running right now.{' '}
+          <br className="closing-cta__br-desktop" />
+          Is anyone{' '}
+          <br className="closing-cta__br-desktop" />
           watching it?
         </h2>
 
