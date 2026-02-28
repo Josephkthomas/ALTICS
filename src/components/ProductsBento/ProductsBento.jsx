@@ -14,6 +14,11 @@ const products = [
     href: '/rftm',
     Illustration: RFTMIllustration,
     gridClass: 'bento-card-rftm',
+    highlights: [
+      'Sub-second fault detection across every fibre strand',
+      'Automated root-cause analysis reduces MTTR by 80%',
+      'Preventive alerts before outages reach customers',
+    ],
   },
   {
     eyebrow: 'PIDS',
@@ -22,6 +27,11 @@ const products = [
     href: '/pids',
     Illustration: PIDSIllustration,
     gridClass: 'bento-card-pids',
+    highlights: [
+      'Detects intrusion, vibration, and tampering in real time',
+      'Covers perimeters up to 80 km with a single sensor unit',
+      'AI-driven classification eliminates false positives',
+    ],
   },
   {
     eyebrow: 'NOVA CONTEXT',
@@ -30,6 +40,11 @@ const products = [
     href: '/nova-context',
     Illustration: NovaIllustration,
     gridClass: 'bento-card-nova',
+    highlights: [
+      'Topology-aware impact analysis in seconds, not hours',
+      'Correlates alarms across layers for true root cause',
+      'Full asset lifecycle from planning to decommission',
+    ],
   },
   {
     eyebrow: 'IOT MONITORING',
@@ -38,6 +53,11 @@ const products = [
     href: '/iot',
     Illustration: IoTIllustration,
     gridClass: 'bento-card-iot',
+    highlights: [
+      'Supports 50+ sensor types out of the box',
+      'Threshold alerts with escalation workflows built in',
+      'Dashboards customised per site, region, or asset type',
+    ],
   },
 ];
 
@@ -169,6 +189,18 @@ export default function ProductsBento() {
                       <p className="bento-card-desc font-body">
                         {product.description}
                       </p>
+                      {product.highlights && (
+                        <ul className="bento-card-bullets">
+                          {product.highlights.map((text, hi) => (
+                            <li key={hi} className="bento-card-bullet">
+                              <svg className="bento-card-bullet-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M11 4.5L5.5 10.5L3 8" />
+                              </svg>
+                              <span>{text}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                       <span className="bento-card-cta font-body font-medium">
                         Learn more →
                       </span>

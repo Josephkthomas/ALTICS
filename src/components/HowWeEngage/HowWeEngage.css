@@ -473,10 +473,10 @@
 
 /* ===== Responsive ===== */
 
-/* Mobile: < 768px — Sticky scroll, one card at a time */
+/* Mobile: < 768px — Scroll-driven accordion */
 @media (max-width: 767px) {
   .engage-section {
-    height: 250vh;
+    height: 350vh;
   }
 
   .engage-sticky {
@@ -506,55 +506,75 @@
     display: none;
   }
 
-  /* Card stack — one card fills the space */
+  /* Accordion card stack — all cards visible, active expanded */
   .engage-cards-row {
-    display: block;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     flex: 1;
     height: auto;
     min-height: 0;
     margin-bottom: 12px;
+    overflow: hidden;
   }
 
   .engage-card {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-    padding: 16px 16px 20px;
-    border-radius: 16px;
-    width: 100%;
-    height: 100%;
-    flex: none;
-    transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
-                transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .engage-card--active {
+    position: relative;
     opacity: 1;
     pointer-events: auto;
+    padding: 12px 16px;
+    border-radius: 0;
+    width: 100%;
+    height: auto;
     flex: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background 400ms cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  .engage-card:first-child {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .engage-card:last-child {
+    border-radius: 0 0 16px 16px;
+    border-bottom: none;
+  }
+
+  /* Active card: expanded */
+  .engage-card--active {
+    flex: none;
+    background: linear-gradient(165deg, rgba(212, 168, 67, 0.12) 0%, rgba(232, 98, 42, 0.18) 45%, rgba(232, 98, 42, 0.06) 100%);
+    border-color: rgba(212, 168, 67, 0.15);
+    padding: 16px 16px 20px;
+  }
+
+  /* Inactive card: collapsed */
+  .engage-card--inactive {
+    flex: none;
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  /* Active card inner sizing */
   .engage-card--active .engage-card__illustration {
-    height: 40px;
-    width: 40px;
-    margin-bottom: 10px;
+    height: 36px;
+    width: 36px;
+    margin-bottom: 8px;
   }
 
   .engage-card--active .engage-card__illustration svg {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
   }
 
   .engage-card--active .engage-card__title {
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 15px;
+    margin-bottom: 4px;
   }
 
   .engage-card--active .engage-card__desc {
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.45;
   }
 
   .engage-card--active .engage-card__highlights {
@@ -575,6 +595,35 @@
   .engage-card--active .engage-card__highlight-icon svg {
     width: 14px;
     height: 14px;
+  }
+
+  /* Inactive card: hide illustration, description, highlights */
+  .engage-card--inactive .engage-card__illustration {
+    height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+  }
+
+  .engage-card--inactive .engage-card__desc {
+    display: none;
+  }
+
+  .engage-card--inactive .engage-card__highlights {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+
+  .engage-card--inactive .engage-card__number {
+    color: var(--color-accent-amber, #D4A843);
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+
+  .engage-card--inactive .engage-card__title {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    margin-bottom: 0;
   }
 
   /* Progress bar — equal segments, no labels */

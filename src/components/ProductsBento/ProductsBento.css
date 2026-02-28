@@ -17,7 +17,7 @@
 /* Mobile: re-enable sticky scroll, one card at a time */
 @media (max-width: 767px) {
     .bento-section {
-        height: 250vh;
+        height: 350vh;
     }
 }
 
@@ -256,7 +256,7 @@
     }
 
     .bento-card-illustration-inner {
-        max-width: 140px;
+        max-width: 180px;
         margin: 0 auto;
     }
 
@@ -274,8 +274,34 @@
         display: block;
         font-size: 13px;
         line-height: 1.5;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         max-width: none;
+    }
+
+    .bento-card-bullets {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .bento-card-bullet {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--color-text-secondary);
+    }
+
+    .bento-card-bullet-icon {
+        flex-shrink: 0;
+        width: 14px;
+        height: 14px;
+        color: var(--color-accent-orange, #E8622A);
+        margin-top: 1px;
     }
 
     .bento-card-cta {
@@ -289,9 +315,13 @@
     }
 }
 
-/* Hide step rail on desktop */
+/* Hide step rail and bullets on desktop */
 @media (min-width: 768px) {
     .bento-step-rail {
+        display: none;
+    }
+
+    .bento-card-bullets {
         display: none;
     }
 }
