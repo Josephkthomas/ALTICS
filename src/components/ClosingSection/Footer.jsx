@@ -20,7 +20,7 @@ export default function Footer() {
       <div className="closing-footer__inner container-custom">
         <div className="closing-footer__grid">
           {/* Brand */}
-          <div>
+          <div className="closing-footer__brand">
             <Link
               to="/"
               className="font-display font-bold text-[18px] block mb-4"

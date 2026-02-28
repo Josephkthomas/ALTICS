@@ -89,31 +89,47 @@
   color: var(--color-inversion-text);
 }
 
-/* Mobile footer tweaks */
+/* Mobile footer — compact 3-column grid */
 @media (max-width: 767px) {
   .closing-footer__inner {
-    padding-top: 36px;
-    padding-bottom: 36px;
+    padding-top: 20px;
+    padding-bottom: 16px;
   }
 
   .closing-footer__grid {
-    gap: 32px;
-    margin-bottom: 32px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  /* Hide the brand column on mobile (it spans full width on desktop) */
+  .closing-footer__brand {
+    display: none;
   }
 
   .closing-footer__col-title {
-    margin-bottom: 16px;
+    font-size: 10px;
+    margin-bottom: 10px;
   }
 
   .closing-footer__link {
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  /* Tighten link list spacing */
+  .closing-footer__grid ul {
+    gap: 6px;
+  }
+
+  .closing-footer__bottom {
+    padding-top: 12px;
   }
 
   .closing-footer__copyright {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .closing-footer__social-link {
-    font-size: 12px;
+    font-size: 11px;
   }
 }

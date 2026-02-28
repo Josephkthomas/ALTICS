@@ -4,7 +4,7 @@ import EngageProgressBar from './EngageProgressBar';
 
 const STEP_MARKERS = ['Discovery', 'Survey', 'Deploy', 'Monitor'];
 
-export default function EngageContent({ steps, activeIndex, fillProgress, overallProgress, hasEntered, onStepClick }) {
+export default function EngageContent({ steps, activeIndex, fillProgress, overallProgress, hasEntered, onStepClick, isMobile }) {
   return (
     <>
       <div className="engage-noise" aria-hidden="true" />
@@ -72,6 +72,7 @@ export default function EngageContent({ steps, activeIndex, fillProgress, overal
               index={i}
               isActive={i === activeIndex}
               hasEntered={hasEntered}
+              isMobile={isMobile}
               onClick={() => onStepClick(i)}
             />
           ))}

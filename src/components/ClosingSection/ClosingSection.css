@@ -6,6 +6,8 @@
 
 @media (max-width: 767px) {
   .closing-section {
-    min-height: auto;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
   }
 }

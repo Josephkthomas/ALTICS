@@ -119,9 +119,6 @@ export default function HowWeEngage() {
       }
       isInViewportRef.current = inViewport;
 
-      // On mobile, only use intersection for entry — no scroll-driven steps
-      if (isMobile) return;
-
       // Map scroll to step + progress
       const scrolled = -rect.top;
       const scrollProgress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
@@ -251,6 +248,7 @@ export default function HowWeEngage() {
           overallProgress={(activeIndex + fillProgress) / TOTAL_STEPS}
           hasEntered={hasEntered}
           onStepClick={goToStep}
+          isMobile={isMobile}
         />
       </div>
     </section>

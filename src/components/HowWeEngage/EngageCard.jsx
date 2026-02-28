@@ -1,7 +1,7 @@
 import React from 'react';
 import HighlightIcon from './HighlightIcon';
 
-export default function EngageCard({ step, index, isActive, hasEntered, onClick }) {
+export default function EngageCard({ step, index, isActive, hasEntered, isMobile, onClick }) {
   const Illustration = step.illustration;
 
   return (
@@ -9,7 +9,7 @@ export default function EngageCard({ step, index, isActive, hasEntered, onClick 
       className={`engage-card ${isActive ? 'engage-card--active' : 'engage-card--inactive'}`}
       onClick={onClick}
       aria-pressed={isActive}
-      style={{
+      style={isMobile ? {} : {
         opacity: hasEntered ? 1 : 0,
         transform: hasEntered ? 'translateY(0)' : 'translateY(32px)',
         transitionDelay: hasEntered ? `${index * 80}ms` : '0ms',

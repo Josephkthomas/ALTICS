@@ -74,9 +74,6 @@ export default function ProductsBento() {
         setHasEntered(true);
       }
 
-      // Skip scroll-driven step logic on mobile (all cards shown at once)
-      if (isMobile) return;
-
       // Scroll-driven step calculation (same pattern as ProblemSection)
       const scrollableDistance = sectionHeight - viewportHeight;
       const scrolled = -rect.top;
@@ -88,8 +85,8 @@ export default function ProductsBento() {
 
       setActiveStep(step);
 
-      // Mark the current clockwise card as activated (once activated, stays activated)
-      const cardIndex = CLOCKWISE_ORDER[step];
+      // On mobile: sequential order. On desktop: clockwise order.
+      const cardIndex = isMobile ? step : CLOCKWISE_ORDER[step];
       setActivatedCards(prev => {
         if (prev.has(cardIndex)) return prev;
         const next = new Set(prev);
@@ -103,7 +100,7 @@ export default function ProductsBento() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasEntered, isMobile]);
 
-  const activeCardIndex = isMobile ? -1 : CLOCKWISE_ORDER[activeStep];
+  const activeCardIndex = isMobile ? activeStep : CLOCKWISE_ORDER[activeStep];
 
   return (
     <section ref={sectionRef} className="bento-section" aria-label="Our solutions">
@@ -126,18 +123,28 @@ export default function ProductsBento() {
             </h2>
           </div>
 
+          {/* Step pips (mobile only) */}
+          {isMobile && (
+            <div className="bento-step-rail">
+              {[0, 1, 2, 3].map(i => (
+                <div key={i} className={`bento-step-pip ${activeStep >= i ? 'bento-step-pip--active' : ''}`} />
+              ))}
+            </div>
+          )}
+
           {/* Bento Grid */}
           <div className="bento-grid">
             {products.map((product, i) => {
               const isHighlighted = activeCardIndex === i;
               const isActivated = isMobile ? hasEntered : activatedCards.has(i);
+              const isMobileActive = isMobile && activeCardIndex === i;
               const Illustration = product.Illustration;
 
               return (
                 <div
                   key={product.eyebrow}
-                  className={`${product.gridClass} bento-card-wrapper ${isHighlighted ? 'bento-highlight' : ''}`}
-                  style={{
+                  className={`${product.gridClass} bento-card-wrapper ${isHighlighted ? 'bento-highlight' : ''} ${isMobileActive ? 'bento-mobile-active' : ''}`}
+                  style={isMobile ? {} : {
                     opacity: hasEntered ? 1 : 0,
                     transform: hasEntered ? 'translateY(0)' : 'translateY(24px)',
                     transitionProperty: 'opacity, transform',
